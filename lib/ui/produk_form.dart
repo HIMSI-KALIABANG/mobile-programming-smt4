@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:my_flutter/ui/produk_detail.dart';
+
+class ProdukForm extends StatefulWidget {
+  @override
+  _ProdukFormState createState() => _ProdukFormState();
+}
+
+class _ProdukFormState extends State<ProdukForm> {
+  final _kodeProdukTextboxController = TextEditingController();
+  final _namaProdukTextboxController = TextEditingController();
+  final _hargaProdukTextboxController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      appBar: AppBar(
+        title: Text('Form Produk'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _textboxKodeProduk(),
+            _textboxNamaProduk(),
+            _textboxHargaProduk(),
+            _tombolSimpan()
+          ],
+        ),
+      ),
+    );
+  }
+
+  _textboxKodeProduk() {
+    return TextField(
+        decoration: const InputDecoration(labelText:"Kode Produk"));
+  }
+
+  _textboxNamaProduk() {
+    return TextField(
+        decoration: const InputDecoration(labelText:"Nama Produk"));
+  }
+
+  _textboxHargaProduk() {
+    return TextField(decoration: const InputDecoration(labelText:"Harga"));
+  }
+
+  _tombolSimpan() {
+    return ElevatedButton(
+        onPressed: () {
+          String kodeProduk = _kodeProdukTextboxController.text;
+          String namaProduk = _namaProdukTextboxController.text;
+          int harga = int.parse(
+              _hargaProdukTextboxController.text); //parsing dari String ke int
+          // pindah ke halaman Produk Detail dan mengirim data
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProdukDetail(kodeProduk: kodeProduk,namaProduk: namaProduk,harga: harga,
+                  )));
+        },
+        child: const Text('Simpan'));
+  }
+}
